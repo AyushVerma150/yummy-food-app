@@ -1,0 +1,56 @@
+
+.desc{
+  font-style: italic;
+  color:grey;
+  font-size: 15px;
+}
+
+.title{
+  font-weight: 800;
+  font-size: 18px;
+  margin-top:0.375rem;
+}
+
+.cost{
+  color: #b13e10;
+  font-weight: 700;
+  font-size:20px;
+  margin-top:0.275rem;
+}
+
+.badge{
+  outline: none;
+  border: none;
+  background-color: #c84a19;
+  width: 28px;
+  border-radius: 0.375rem;
+  height:30px;
+  color:white;
+  font-weight: 100;
+}
+
+.item-count{
+  min-width: 25px;
+  text-align: center;
+}
+
+.add-item{
+  min-width: 81px;
+  outline: none;
+  border: none;
+  border-radius: 0.37rem;
+  height:35px;
+  padding:5px;
+  margin-top:1rem;
+  background-color: #383838;
+  color:white;
+  font-size: 12px;
+}
+
+hr{
+  background-color:rgb(194, 191, 191);
+  width: 98%;
+  opacity: 0.7;
+  height:0.5px;
+  border: none;
+}

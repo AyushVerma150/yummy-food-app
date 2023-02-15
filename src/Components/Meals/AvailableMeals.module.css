@@ -1,0 +1,22 @@
+.meals {
+  max-width: 60rem;
+  width: 90%;
+  margin: auto;
+  position: relative;
+  background-color: white;
+  color: #383838;
+  border-radius: 0.375rem;
+  padding: 1.25rem;
+  margin-top:3rem;
+}
+
+
+.meals li{
+  /* min-height: 100px; */
+  padding: 1rem;
+  text-align: left;
+}
+
+.meals li h2{
+  font-size: medium;
+}
