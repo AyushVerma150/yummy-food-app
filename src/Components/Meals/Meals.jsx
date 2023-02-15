@@ -1,11 +1,11 @@
 import AvailableMeals from "./AvailableMeals";
 import MealsSummary from "./MealsSummary";
 
-const Meals = ({ addItemsToCart }) => {
+const Meals = ({ cartItems, addItemsToCart }) => {
   return (
     <>
       <MealsSummary />
-      <AvailableMeals addItemsToCart={addItemsToCart} />
+      <AvailableMeals cartItems={cartItems} addItemsToCart={addItemsToCart} />
     </>
   );
 };

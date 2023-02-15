@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Cart from "./Components/Cart/Cart";
 import Header from "./Components/Layout/Header/Header";
 import Meals from "./Components/Meals/Meals";
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
-
-  useEffect(() => {
-    if (cartItems.length) {
-      console.log("The Cart Items are : ", cartItems);
-    }
-  }, [cartItems]);
+  const [cartEnabled, setCartEnabled] = useState(false);
 
   const addItemToCart = (item) => {
     const isPresent = cartItems.find((o) => o.name === item.name);
@@ -28,7 +24,7 @@ const App = () => {
         ...cartItems,
         {
           ...item,
-          count: 1,
+          count: item.count === 0 ? 1 : item.count,
         },
       ]);
     }
@@ -36,8 +32,15 @@ const App = () => {
 
   return (
     <div>
-      <Header cartCount={cartItems.length} />
-      <Meals addItemsToCart={addItemToCart} />
+      {cartEnabled && (
+        <Cart
+          cartItems={cartItems}
+          setCartItems={setCartItems}
+          openCart={setCartEnabled}
+        />
+      )}
+      <Header cartCount={cartItems.length} openCart={setCartEnabled} />
+      <Meals cartItems={cartItems} addItemsToCart={addItemToCart} />
     </div>
   );
 };

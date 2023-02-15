@@ -5,6 +5,7 @@ const MealItem = ({
   addCountClick,
   removeCountClick,
   addItemsToCart,
+  cartEnabled = false,
 }) => {
   return (
     <>
@@ -20,11 +21,28 @@ const MealItem = ({
           <div className={classes.title}>
             <span>{item.name}</span>
           </div>
-          <div className={classes.desc}>
-            <span>{item.description}</span>
-          </div>
-          <div className={classes.cost}>
-            <span>{"$" + item.price}</span>
+          {!cartEnabled && (
+            <div className={classes.desc}>
+              <span>{item.description}</span>
+            </div>
+          )}
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              minWidth: "120px",
+            }}
+          >
+            <div className={classes.cost}>
+              <span>{"$" + item.price}</span>
+            </div>
+            {cartEnabled && (
+              <div className={classes["cart-count"]}>
+                <span>{"x" + item.count}</span>
+              </div>
+            )}
           </div>
         </div>
         {/* Right Side  */}
@@ -46,9 +64,11 @@ const MealItem = ({
                 {"+"}
               </button>
             </div>
-            <div className={classes["item-count"]}>
-              <span className={classes.desc}>{item.count}</span>
-            </div>
+            {!cartEnabled ? (
+              <div className={classes["item-count"]}>
+                <span className={classes.desc}>{item.count}</span>
+              </div>
+            ) : null}
             <div>
               <button
                 onClick={() => {
@@ -60,16 +80,23 @@ const MealItem = ({
               </button>
             </div>
           </div>
-          <button
-            onClick={() => {
-              if (item.count === 0) addCountClick(item);
-              // update Item Count
-              addItemsToCart(item);
-            }}
-            className={classes["add-item"]}
-          >
-            Add to Cart
-          </button>
+          {!cartEnabled && (
+            <button
+              onClick={() => {
+                if (item.count === 0) addCountClick(item);
+                // update Item Count
+                addItemsToCart(item);
+              }}
+              className={classes["add-item"]}
+            >
+              Add to Cart
+            </button>
+          )}
+          {cartEnabled && (
+            <button className={classes["items-total"]}>
+              {"$" + (item.price * item.count).toFixed(2)}
+            </button>
+          )}
         </div>
       </div>
       <hr />

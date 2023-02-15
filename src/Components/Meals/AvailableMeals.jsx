@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem";
 
-const AvailableMeals = ({ addItemsToCart }) => {
+const AvailableMeals = ({ cartItems, addItemsToCart }) => {
   const [mealItems, setMealItems] = useState([
     {
       id: "m1",
@@ -65,6 +65,12 @@ const AvailableMeals = ({ addItemsToCart }) => {
     });
     setMealItems(newState);
   };
+
+  useEffect(() => {
+    if(cartItems.length){
+      console.log("Cart Items has changed, Go Checkout!", cartItems)
+    }
+  }, [cartItems]);
 
   return (
     <section className={classes.meals}>
