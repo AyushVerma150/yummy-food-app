@@ -2,11 +2,13 @@ import classes from "./MealItem.module.css";
 
 const MealItem = ({
   item,
+  cartItems,
   addCountClick,
-  removeCountClick,
   addItemsToCart,
+  removeCountClick,
   cartEnabled = false,
 }) => {
+  const itemInCart = cartItems?.find((o) => o.name === item.name) ?? null;
   return (
     <>
       <div
@@ -56,8 +58,11 @@ const MealItem = ({
           >
             <div>
               <button
+                disabled={item.count >= 10}
                 onClick={() => {
-                  addCountClick(item);
+                  if (cartEnabled) {
+                    addItemsToCart(item, cartEnabled);
+                  } else addCountClick(item);
                 }}
                 className={classes.badge}
               >
@@ -71,8 +76,10 @@ const MealItem = ({
             ) : null}
             <div>
               <button
+                disabled={item.count <= 0}
                 onClick={() => {
-                  removeCountClick(item);
+                  if (cartEnabled) {
+                  } else removeCountClick(item);
                 }}
                 className={classes.badge}
               >
@@ -89,7 +96,9 @@ const MealItem = ({
               }}
               className={classes["add-item"]}
             >
-              Add to Cart
+              {itemInCart
+                ? `Cart Count  is ${itemInCart.count}`
+                : "Add to Cart"}
             </button>
           )}
           {cartEnabled && (

@@ -29,6 +29,10 @@
   font-weight: 100;
 }
 
+.badge:disabled{
+  background-color: lightgray; 
+}
+
 .item-count{
   min-width: 25px;
   text-align: center;
@@ -69,7 +73,10 @@
   background-color: #383838;
   color:white;
   font-size: 12px;
+
 }
+
+
 
 hr{
   background-color:rgb(194, 191, 191);

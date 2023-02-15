@@ -6,14 +6,15 @@ const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [cartEnabled, setCartEnabled] = useState(false);
 
-  const addItemToCart = (item) => {
+  const addItemToCart = (item, insideCart = false) => {
     const isPresent = cartItems.find((o) => o.name === item.name);
     if (isPresent) {
       const newState = cartItems.map((o) => {
         if (o.name === item.name) {
           return {
             ...item,
-            count: item.count === 0 ? 1 : item.count,
+            count:
+              item.count === 0 ? 1 : insideCart ? item.count + 1 : item.count,
           };
         }
         return o;
@@ -34,6 +35,7 @@ const App = () => {
     <div>
       {cartEnabled && (
         <Cart
+          addItemsToCart={addItemToCart}
           cartItems={cartItems}
           setCartItems={setCartItems}
           openCart={setCartEnabled}

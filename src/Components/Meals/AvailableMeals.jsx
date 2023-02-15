@@ -67,8 +67,16 @@ const AvailableMeals = ({ cartItems, addItemsToCart }) => {
   };
 
   useEffect(() => {
-    if(cartItems.length){
-      console.log("Cart Items has changed, Go Checkout!", cartItems)
+    if (cartItems.length) {
+      const prevState = mealItems;
+      cartItems.forEach((i) => {
+        prevState.forEach((o) => {
+          if (o.name === i.name) {
+            o.count = i.count;
+          }
+        });
+      });
+      setMealItems(prevState);
     }
   }, [cartItems]);
 
@@ -78,6 +86,7 @@ const AvailableMeals = ({ cartItems, addItemsToCart }) => {
         return (
           <MealItem
             item={o}
+            cartItems={cartItems}
             addItemsToCart={addItemsToCart}
             addCountClick={onAddCountClick}
             key={"av-" + index + "-" + o.name}

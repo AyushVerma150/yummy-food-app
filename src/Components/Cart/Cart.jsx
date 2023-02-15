@@ -1,6 +1,6 @@
 import MealItem from "../Meals/MealItem";
 import classes from "./Cart.module.css";
-const Cart = ({ cartItems, setCartItems, openCart }) => {
+const Cart = ({ cartItems, openCart, addItemsToCart }) => {
   let totalCost = 0;
   cartItems.map((o) => {
     totalCost += o.count * o.price;
@@ -24,7 +24,13 @@ const Cart = ({ cartItems, setCartItems, openCart }) => {
           ) : (
             <>
               {cartItems.map((item) => {
-                return <MealItem item={item} cartEnabled={true} />;
+                return (
+                  <MealItem
+                    item={item}
+                    cartEnabled={true}
+                    addItemsToCart={addItemsToCart}
+                  />
+                );
               })}
               <>
                 <div
