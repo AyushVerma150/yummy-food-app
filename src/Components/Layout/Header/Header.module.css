@@ -41,6 +41,8 @@
 
 
 .header-button{
+  outline: none;
+  border: none;;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -49,9 +51,11 @@
   border-radius: 3rem;
   padding: 10px 10px;
   text-align: center;
-  width: 200px;
+  width: 190px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   z-index: 100;
+  color:white;
+  height: 55px;
 }
 
 .cart-icon{
@@ -59,9 +63,10 @@
 }
 
 .cart-count{
+  text-align: center;
   background-color: #b94517;
   border-radius: 50%;
-  padding: 4px 4px;
+  padding: 6px 6px;
   width: 35px;
 }
 
@@ -74,7 +79,7 @@
 
 
 .bump {
-  animation: bump 300ms ease-out;
+  animation: bump 500ms ease-out;
 }
 
 @keyframes bump {

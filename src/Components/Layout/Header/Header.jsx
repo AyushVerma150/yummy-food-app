@@ -10,7 +10,6 @@ const Header = ({ cartCount, openCart }) => {
         <HeaderButton
           openCart={openCart}
           cartCount={cartCount}
-          className={classes.bump}
         />
       </header>
       <div className={classes["main-image"]}>
