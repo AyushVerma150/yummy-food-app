@@ -1,38 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem";
 
 const AvailableMeals = ({ cartItems, addItemsToCart }) => {
-  const [mealItems, setMealItems] = useState([
-    {
-      id: "m1",
-      name: "Sushi",
-      description: "Finest fish and veggies",
-      price: 22.99,
-      count: 0,
-    },
-    {
-      id: "m2",
-      name: "Schnitzel",
-      description: "A german specialty!",
-      price: 16.5,
-      count: 0,
-    },
-    {
-      id: "m3",
-      name: "Barbecue Burger",
-      description: "American, raw, meaty",
-      price: 12.99,
-      count: 0,
-    },
-    {
-      id: "m4",
-      name: "Green Bowl",
-      description: "Healthy...and green...",
-      price: 18.99,
-      count: 0,
-    },
-  ]);
+  const [error, setError] = useState(null);
+  const [mealItems, setMealItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onAddCountClick = (mealInfo, count = 0) => {
     const newState = mealItems.map((item) => {
@@ -66,6 +39,42 @@ const AvailableMeals = ({ cartItems, addItemsToCart }) => {
     setMealItems(newState);
   };
 
+  const transformData = useCallback((data) => {
+    const mealsLoaded = [];
+    for (const key in data) {
+      const mealInfo = data[key];
+      mealsLoaded.push({ ...mealInfo, id: key, count: 0 });
+    }
+    setMealItems(mealsLoaded);
+  }, []);
+
+  const fetchYourFavMeals = useCallback(async () => {
+    try {
+      setError(null);
+      setIsLoading(true);
+      const mealResponse = await fetch(
+        "https://food-yumm-app-default-rtdb.firebaseio.com/meals.json"
+      );
+      setIsLoading(false);
+
+      if (!mealResponse.ok) {
+        setError("something went wrong");
+      }
+      const results = await mealResponse.json();
+      transformData(results);
+      console.log("The response is : ", results);
+    } catch (err) {
+      setIsLoading(false);
+      setError("something went wrong");
+      console.log("err occured : ", err);
+    }
+  }, [transformData]);
+
+  useEffect(() => {
+    // load Meals Data
+    fetchYourFavMeals();
+  }, [fetchYourFavMeals]);
+
   useEffect(() => {
     if (cartItems.length) {
       const prevState = mealItems;
@@ -78,22 +87,63 @@ const AvailableMeals = ({ cartItems, addItemsToCart }) => {
       });
       setMealItems(prevState);
     }
+    // eslint-disable-next-line
   }, [cartItems]);
 
   return (
     <section className={classes.meals}>
-      {mealItems.map((o, index) => {
-        return (
-          <MealItem
-            item={o}
-            cartItems={cartItems}
-            addItemsToCart={addItemsToCart}
-            addCountClick={onAddCountClick}
-            key={"av-" + index + "-" + o.name}
-            removeCountClick={onRemoveCountClick}
-          />
-        );
-      })}
+      {!error && isLoading && (
+        <p
+          style={{
+            color: "#ff6f31",
+            textAlign: "center",
+            fontSize: "18px",
+            fontStyle: "italic",
+          }}
+        >
+          Catch a breath while we load all your favourite dishes...
+        </p>
+      )}
+      {!error &&
+        !isLoading &&
+        mealItems.length > 0 &&
+        mealItems.map((o, index) => {
+          return (
+            <MealItem
+              item={o}
+              cartItems={cartItems}
+              addItemsToCart={addItemsToCart}
+              addCountClick={onAddCountClick}
+              key={"av-" + index + "-" + o.name}
+              removeCountClick={onRemoveCountClick}
+            />
+          );
+        })}
+
+      {!error && !isLoading && mealItems.length === 0 && (
+        <p style={{ textAlign: "center" }}>
+          Looks like we are sold out!
+          <br />
+          <span style={{ fontStyle: "italic", fontWeight: "bolder" }}>
+            Come back Later.
+          </span>
+        </p>
+      )}
+      {error && !isLoading && (
+        <p style={{ textAlign: "center", fontSize: "18px" }}>
+          Oops! we ran into an issue.
+          <br />
+          <span
+            style={{
+              fontWeight: "bolder",
+              fontStyle: "italic",
+              color: "#c30000",
+            }}
+          >
+            Its not you, its us!
+          </span>
+        </p>
+      )}
     </section>
   );
 };

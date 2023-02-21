@@ -6,11 +6,8 @@ const Header = ({ cartCount, openCart }) => {
   return (
     <>
       <header className={classes.header}>
-        <h1>FoodYum</h1>
-        <HeaderButton
-          openCart={openCart}
-          cartCount={cartCount}
-        />
+        <h1>Foodyumm..</h1>
+        <HeaderButton openCart={openCart} cartCount={cartCount} />
       </header>
       <div className={classes["main-image"]}>
         <img src={mealsImg} alt={"A Table full of food!"} />
