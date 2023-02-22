@@ -7,6 +7,7 @@ const Cart = ({ cartItems, openCart, addItemsToCart }) => {
     totalCost += o.count * o.price;
     return "";
   });
+
   return (
     <>
       <div
@@ -41,14 +42,17 @@ const Cart = ({ cartItems, openCart, addItemsToCart }) => {
                     justifyContent: "space-between",
                   }}
                 >
-                  {/* Left Side  */}
                   <div>
                     <h4>Total Amount</h4>
-                    {/* <CartForm /> */}
                   </div>
-                  {/* Right Side  */}
                   <div>
-                    <h3 style={{ textAlign: "right", color: "#ff6f31" }}>
+                    <h3
+                      style={{
+                        textAlign: "right",
+                        color: "#ff6f31",
+                        fontStyle: "italic",
+                      }}
+                    >
                       {"$" + totalCost.toFixed(2)}
                     </h3>
                   </div>
