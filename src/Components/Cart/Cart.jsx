@@ -1,5 +1,6 @@
 import MealItem from "../Meals/MealItem";
 import classes from "./Cart.module.css";
+import CartForm from "./CartForm";
 const Cart = ({ cartItems, openCart, addItemsToCart }) => {
   let totalCost = 0;
   cartItems.map((o) => {
@@ -43,44 +44,24 @@ const Cart = ({ cartItems, openCart, addItemsToCart }) => {
                   {/* Left Side  */}
                   <div>
                     <h4>Total Amount</h4>
+                    {/* <CartForm /> */}
                   </div>
                   {/* Right Side  */}
                   <div>
-                    <h3 style={{ textAlign: "right" }}>
+                    <h3 style={{ textAlign: "right", color: "#ff6f31" }}>
                       {"$" + totalCost.toFixed(2)}
                     </h3>
-
-                    <div
-                      style={{
-                        display: "flex",
-                        textAlign: "center",
-                        justifyContent: "right",
-                        gridGap: "12px",
-                      }}
-                    >
-                      <button
-                        onClick={() => {
-                          openCart(false);
-                        }}
-                        className={classes.close}
-                      >
-                        Close
-                      </button>
-                      <button
-                        onClick={() => {
-                          openCart(false);
-                        }}
-                        className={classes.order}
-                      >
-                        Order
-                      </button>
-                    </div>
                   </div>
                 </div>
               </>
             </>
           )}
         </div>
+        {cartItems.length > 0 && (
+          <>
+            <CartForm openCart={openCart} />
+          </>
+        )}
       </div>
     </>
   );
