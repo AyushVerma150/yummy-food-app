@@ -166,6 +166,7 @@ const Cart = ({ cartItems, openCart, addItemsToCart, setCartItems }) => {
             }}
           >
             <img
+              preload
               alt="Order In Progress"
               style={{ height: "200px", width: "200px" }}
               src={orderInProgressImg}
@@ -182,6 +183,7 @@ const Cart = ({ cartItems, openCart, addItemsToCart, setCartItems }) => {
             }}
           >
             <img
+              preload
               src={OrderComfirmedImg}
               alt="Order Confirmed"
               style={{ height: "200px", width: "200px" }}
