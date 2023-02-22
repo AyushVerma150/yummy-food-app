@@ -52,11 +52,11 @@
   outline: none;
   border: none;
   border-radius: 0.37rem;
-  height:35px;
+  height:45px;
   color:white;
   background-color: #383838;
   margin-top:5px;
-  min-width:65px;
+  min-width:85px;
   font-size: 15px;
 }
 
@@ -64,11 +64,11 @@
   outline: none;
   border: none;
   border-radius: 0.37rem;
-  height:35px;
+  height:45px;
   color:white;
   background-color: #ff6f31;
   margin-top:5px;
-  min-width:65px;
+  min-width:80px;
   font-size: 15px;
 }
 

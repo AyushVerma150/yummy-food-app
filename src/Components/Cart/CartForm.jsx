@@ -23,8 +23,7 @@ const CartForm = ({ openCart, onOrderClicked, closeOrderDialog }) => {
       return;
     }
 
-    console.log("Order is Success!");
-    openCart(false);
+    onOrderClicked();
   };
 
   const {

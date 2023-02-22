@@ -86,6 +86,21 @@ const AvailableMeals = ({ cartItems, addItemsToCart }) => {
         });
       });
       setMealItems(prevState);
+    } else {
+      // reset the items
+
+      setMealItems((prev) => {
+        const updatedState = [];
+        prev.map((o) => {
+          updatedState.push({
+            ...o,
+            count: 0,
+          });
+          return null;
+        });
+
+        return updatedState;
+      });
     }
     // eslint-disable-next-line
   }, [cartItems]);
