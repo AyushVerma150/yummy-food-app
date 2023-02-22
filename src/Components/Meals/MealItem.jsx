@@ -54,6 +54,7 @@ const MealItem = ({
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
+              minWidth: "70px",
             }}
           >
             <div>
@@ -99,11 +100,6 @@ const MealItem = ({
               {itemInCart
                 ? `Cart Count  is ${itemInCart.count}`
                 : "Add to Cart"}
-            </button>
-          )}
-          {cartEnabled && (
-            <button className={classes["items-total"]}>
-              {"$" + (item.price * item.count).toFixed(2)}
             </button>
           )}
         </div>

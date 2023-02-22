@@ -1,12 +1,18 @@
+import { useState } from "react";
 import MealItem from "../Meals/MealItem";
 import classes from "./Cart.module.css";
 import CartForm from "./CartForm";
 const Cart = ({ cartItems, openCart, addItemsToCart }) => {
+  const [orderClicked, setOrderClicked] = useState(false);
   let totalCost = 0;
   cartItems.map((o) => {
     totalCost += o.count * o.price;
     return "";
   });
+
+  const closeOrderDialog = () => {
+    setOrderClicked(false);
+  };
 
   return (
     <>
@@ -61,10 +67,38 @@ const Cart = ({ cartItems, openCart, addItemsToCart }) => {
             </>
           )}
         </div>
-        {cartItems.length > 0 && (
+        {orderClicked && (
           <>
-            <CartForm openCart={openCart} />
+            <CartForm openCart={openCart} closeOrderDialog={closeOrderDialog} />
           </>
+        )}
+        {!orderClicked && (
+          <div
+            style={{
+              display: "flex",
+              textAlign: "center",
+              justifyContent: "right",
+              gridGap: "12px",
+              padding: "5px 5px",
+            }}
+          >
+            <button
+              onClick={() => {
+                openCart(false);
+              }}
+              className={classes.close}
+            >
+              Close
+            </button>
+            <button
+              onClick={() => {
+                setOrderClicked(true);
+              }}
+              className={classes.order}
+            >
+              Order
+            </button>
+          </div>
         )}
       </div>
     </>

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import useInputHook from "../hooks/use-input-hook";
 import classes from "./Cart.module.css";
 
-const CartForm = ({ openCart, onOrderClicked }) => {
+const CartForm = ({ openCart, onOrderClicked, closeOrderDialog }) => {
   const firstNameRef = useRef();
   const billAddRef = useRef();
   const postalCodeRef = useRef();
@@ -191,16 +191,11 @@ const CartForm = ({ openCart, onOrderClicked }) => {
           padding: "5px 5px",
         }}
       >
-        <button
-          onClick={() => {
-            openCart(false);
-          }}
-          className={classes.close}
-        >
-          Close
+        <button onClick={closeOrderDialog} className={classes.close}>
+          Cancel
         </button>
         <button onClick={onOrderClickHandler} className={classes.order}>
-          Order
+          Confirm
         </button>
       </div>
     </>

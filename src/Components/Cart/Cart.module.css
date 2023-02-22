@@ -76,6 +76,7 @@
 
 .form-control {
   margin: 1rem;
+  font-size:14px;
 }
 
 .form-control input,
@@ -97,10 +98,10 @@
 .form-control textarea,input,
 .form-control select {
   font: inherit;
-  padding: 0.5rem;
-  border-radius: 4px;
+  padding: 0.25rem;
+  border-radius: 0.375rem;
   border: 1px solid #ccc;
-  width: 18rem;
+  width: 15rem;
   max-width: 100%;
 }
 
