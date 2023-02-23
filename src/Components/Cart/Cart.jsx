@@ -3,7 +3,7 @@ import MealItem from "../Meals/MealItem";
 import classes from "./Cart.module.css";
 import CartForm from "./CartForm";
 
-import orderInProgressImg from "../../Assets/in-progress.png";
+import { RotatingLines } from "react-loader-spinner";
 import OrderComfirmedImg from "../../Assets/order-confirmed.png";
 
 const Cart = ({
@@ -57,9 +57,9 @@ const Cart = ({
   };
 
   const onOrderClick = async () => {
+    setOrderInProgress(true);
     try {
       setTimeout(async () => {
-        setOrderInProgress(true);
         await punchOutOrder();
       }, 2500);
     } catch (err) {
@@ -177,11 +177,12 @@ const Cart = ({
               padding: "10px 10px",
             }}
           >
-            <img
-              preload
-              alt="Order In Progress"
-              style={{ height: "200px", width: "200px" }}
-              src={orderInProgressImg}
+            <RotatingLines
+              strokeColor="#ff6f31"
+              strokeWidth="3"
+              animationDuration="0.9"
+              width="124"
+              visible={true}
             />
             <p>Please wait while we confirm your Order!</p>
           </div>
