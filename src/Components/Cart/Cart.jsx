@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MealItem from "../Meals/MealItem";
 import classes from "./Cart.module.css";
 import CartForm from "./CartForm";
@@ -51,17 +51,26 @@ const Cart = ({ cartItems, openCart, addItemsToCart, setCartItems }) => {
 
   const onOrderClick = async () => {
     try {
-      setOrderInProgress(true);
-      await punchOutOrder();
+      setTimeout(async () => {
+        setOrderInProgress(true);
+        await punchOutOrder();
+      }, 2700);
       // Reset Order Confirmation
       setTimeout(async () => {
-        setOrderConfirmed(false);
-        setOrderClicked(false);
-      }, 2500);
+        // setOrderConfirmed(false);
+        // setOrderClicked(false);
+      }, 5000);
     } catch (err) {
       console.log("Some error Occured, while ordering!", err);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      setOrderConfirmed(false);
+      setOrderClicked(false);
+    };
+  }, []);
 
   return (
     <>
