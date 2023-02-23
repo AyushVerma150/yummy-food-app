@@ -5,6 +5,7 @@ import CartForm from "./CartForm";
 
 import { RotatingLines } from "react-loader-spinner";
 import OrderComfirmedImg from "../../Assets/order-confirmed.png";
+import EmptyCartImg from "../../Assets/empty-cart.png";
 
 const Cart = ({
   cartItems,
@@ -90,7 +91,19 @@ const Cart = ({
           <>
             <div className={classes.content}>
               {!cartItems.length ? (
-                <p style={{ textAlign: "center" }}>Your Cart is empty!</p>
+                <div style={{ textAlign: "center", margin: "0 auto" }}>
+                  <img
+                    preload
+                    src={EmptyCartImg}
+                    alt="Cart is Empty!"
+                    style={{
+                      height: "189px",
+                      width: "190px",
+                      marginLeft: "-50px",
+                    }}
+                  />
+                  <p>Your Cart is empty!</p>
+                </div>
               ) : (
                 <>
                   {cartItems.map((item) => {
@@ -196,7 +209,6 @@ const Cart = ({
             }}
           >
             <img
-              preload
               src={OrderComfirmedImg}
               alt="Order Confirmed"
               style={{ height: "200px", width: "200px" }}
