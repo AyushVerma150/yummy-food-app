@@ -1,13 +1,21 @@
 import classes from "./MealItem.module.css";
-
+import KadhaiPaneer from "../../Assets/kadai-paneer.jpg";
+import DalMakhni from "../../Assets/dal-makhni.jpg";
+import Sushi from "../../Assets/sushi.jpeg";
 const MealItem = ({
   item,
   cartItems,
   addCountClick,
   addItemsToCart,
   removeCountClick,
+  removeItemFromCart,
   cartEnabled = false,
 }) => {
+  const nameToImgMapper = (name) => {
+    if (name.toLowerCase() === "kadai paneer") return KadhaiPaneer;
+    else if (name.toLowerCase() === "sushi") return Sushi;
+    else return DalMakhni;
+  };
   const itemInCart = cartItems?.find((o) => o.name === item.name) ?? null;
   return (
     <>
@@ -49,58 +57,109 @@ const MealItem = ({
         </div>
         {/* Right Side  */}
         <div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              minWidth: "70px",
-            }}
-          >
-            <div>
-              <button
-                disabled={item.count >= 10}
-                onClick={() => {
-                  if (cartEnabled) {
-                    addItemsToCart(item, cartEnabled);
-                  } else addCountClick(item);
-                }}
-                className={classes.badge}
-              >
-                {"+"}
-              </button>
-            </div>
-            {!cartEnabled ? (
-              <div className={classes["item-count"]}>
-                <span className={classes.desc}>{item.count}</span>
-              </div>
-            ) : null}
-            <div>
-              <button
-                disabled={item.count <= 0}
-                onClick={() => {
-                  if (cartEnabled) {
-                  } else removeCountClick(item);
-                }}
-                className={classes.badge}
-              >
-                {"-"}
-              </button>
-            </div>
-          </div>
-          {!cartEnabled && (
-            <button
-              onClick={() => {
-                if (item.count === 0) addCountClick(item);
-                // update Item Count
-                addItemsToCart(item);
+          {cartEnabled && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                minWidth: "70px",
               }}
-              className={classes["add-item"]}
             >
-              {itemInCart
-                ? `Cart Count  is ${itemInCart.count}`
-                : "Add to Cart"}
-            </button>
+              <div>
+                <button
+                  disabled={item.count >= 10}
+                  onClick={() => {
+                    addItemsToCart(item);
+                  }}
+                  className={classes.badge}
+                >
+                  {"+"}
+                </button>
+              </div>
+              <div>
+                <button
+                  disabled={item.count <= 0}
+                  onClick={() => {
+                    removeItemFromCart(item);
+                  }}
+                  className={classes.badge}
+                >
+                  {"-"}
+                </button>
+              </div>
+            </div>
+          )}
+          {!cartEnabled && (
+            <div className={classes["zoom-effect-container"]}>
+              <div className={classes["image-card"]}>
+                <img src={nameToImgMapper(item.name)} alt={item.name} />
+              </div>
+              <button
+                onClick={() => {
+                  // update Item Count
+
+                  if (!itemInCart) addItemsToCart(item);
+                }}
+                className={classes["add-item"]}
+              >
+                {itemInCart ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <button
+                      style={{
+                        fontSize: "20px",
+                        minWidth: "15px",
+                        marginTop: "-2px",
+                        outline: "none",
+                        border: "none",
+                        background: "transparent",
+                        color: "white",
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeItemFromCart(item);
+                      }}
+                    >
+                      -
+                    </button>
+                    <div
+                      style={{
+                        fontWeight: "bold",
+                        fonrSize: "18px !important",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      {itemInCart.count}
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addItemsToCart(item);
+                      }}
+                      style={{
+                        fontSize: "20px",
+                        minWidth: "15px",
+                        marginTop: "-2px",
+                        outline: "none",
+                        border: "none",
+                        background: "transparent",
+                        color: "white",
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
+                ) : (
+                  "ADD"
+                )}
+              </button>
+            </div>
           )}
         </div>
       </div>

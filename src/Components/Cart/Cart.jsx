@@ -5,7 +5,14 @@ import CartForm from "./CartForm";
 
 import orderInProgressImg from "../../Assets/in-progress.png";
 import OrderComfirmedImg from "../../Assets/order-confirmed.png";
-const Cart = ({ cartItems, openCart, addItemsToCart, setCartItems }) => {
+
+const Cart = ({
+  cartItems,
+  openCart,
+  addItemsToCart,
+  setCartItems,
+  removeItemFromCart,
+}) => {
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [orderInProgress, setOrderInProgress] = useState(false);
   const [orderClicked, setOrderClicked] = useState(false);
@@ -54,12 +61,7 @@ const Cart = ({ cartItems, openCart, addItemsToCart, setCartItems }) => {
       setTimeout(async () => {
         setOrderInProgress(true);
         await punchOutOrder();
-      }, 2700);
-      // Reset Order Confirmation
-      setTimeout(async () => {
-        // setOrderConfirmed(false);
-        // setOrderClicked(false);
-      }, 5000);
+      }, 2500);
     } catch (err) {
       console.log("Some error Occured, while ordering!", err);
     }
@@ -97,6 +99,7 @@ const Cart = ({ cartItems, openCart, addItemsToCart, setCartItems }) => {
                         item={item}
                         cartEnabled={true}
                         addItemsToCart={addItemsToCart}
+                        removeItemFromCart={removeItemFromCart}
                       />
                     );
                   })}

@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import classes from "./AvailableMeals.module.css";
 import MealItem from "./MealItem";
 
-const AvailableMeals = ({ cartItems, addItemsToCart }) => {
+const AvailableMeals = ({ cartItems, addItemsToCart, removeItemFromCart }) => {
   const [error, setError] = useState(null);
   const [mealItems, setMealItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -128,6 +128,7 @@ const AvailableMeals = ({ cartItems, addItemsToCart }) => {
               item={o}
               cartItems={cartItems}
               addItemsToCart={addItemsToCart}
+              removeItemFromCart={removeItemFromCart}
               addCountClick={onAddCountClick}
               key={"av-" + index + "-" + o.name}
               removeCountClick={onRemoveCountClick}
